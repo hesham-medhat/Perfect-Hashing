@@ -3,6 +3,13 @@
 
 namespace cs223 {
     class UniversalHashFamily {
+    public:
+        UniversalHashFamily(int size);
+        int hash(int key);
+        int getSize();
+
+    private:
+        int size;
     };
 }
 
