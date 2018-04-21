@@ -1,15 +1,21 @@
 #ifndef CS223_UNIVERSALHASHFAMILY_H
 #define CS223_UNIVERSALHASHFAMILY_H
 
+#include <random>
+
 namespace cs223 {
     class UniversalHashFamily {
     public:
-        UniversalHashFamily(int size);
+        UniversalHashFamily(int sizeBits, int keyBits);
         int hash(int key);
-        int getSize();
+        int getSizeBits();
+        int getKeyBits();
 
     private:
-        int size;
+        int sizeBits;
+        int keyBits;
+        int array[];
+        int random_int(int initial, int last, std::mt19937_64 rng);
     };
 }
 
