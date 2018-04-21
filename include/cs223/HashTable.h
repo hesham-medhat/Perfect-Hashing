@@ -10,9 +10,9 @@ namespace cs223 {
 
         int size;
 
-        bool exists(int key);
-        void deleteKey(int key);
-        bool insertKey(int key);
+        virtual bool exists(int key) = 0;
+        virtual void deleteKey(int key) = 0;
+        virtual bool insertKey(int key) = 0;
 
     protected:
         UniversalHashFamily* hasher;

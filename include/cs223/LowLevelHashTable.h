@@ -9,9 +9,9 @@ namespace cs223 {
     public:
         LowLevelHashTable(UniversalHashFamily uhf);
 
-        bool exists(int key);
-        void deleteKey(int key);
-        bool insertKey(int key);
+        bool exists(int key) override;
+        void deleteKey(int key) override;
+        bool insertKey(int key) override;
     private:
 
         std::pair<bool, int> * data;// <ValueExists?, Value>
