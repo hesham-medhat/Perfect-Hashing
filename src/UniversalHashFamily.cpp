@@ -44,8 +44,10 @@ namespace cs223 {
     }
 
 
-    int random_int(int initial, int last, std::mt19937_64 rng) {
+    int UniversalHashFamily::random_int(int initial, int last, std::mt19937_64 rng) {
         std::uniform_int_distribution<int> distribution(initial, last);
         return distribution(rng);  // Use rng as a generator
     }
+
+
 }

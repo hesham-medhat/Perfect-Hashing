@@ -14,7 +14,7 @@ namespace cs223 {
     private:
         int sizeBits;
         int keyBits;
-        int array[];
+        int *array;
         int random_int(int initial, int last, std::mt19937_64 rng);
     };
 }
