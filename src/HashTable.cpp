@@ -6,8 +6,8 @@
 #include "UniversalHashFamily.h"
 
 namespace cs223 {
-    HashTable::HashTable(UniversalHashFamily & uhf) {
+    HashTable::HashTable(UniversalHashFamily & uhf, int size) {
         hasher = &uhf;
-        size = uhf.getSize();
+        size = size;
     }
 }

@@ -7,8 +7,8 @@
 #include "UniversalHashFamily.h"
 
 namespace cs223 {
-    LowLevelHashTable::LowLevelHashTable(UniversalHashFamily uhf)
-            : HashTable(uhf) {
+    LowLevelHashTable::LowLevelHashTable(UniversalHashFamily uhf, int size)
+            : HashTable(uhf, size) {
         data = new std::pair<bool, int> [size];
         for (int i = 0; i < size; i++) {
             data[i].first = false;
