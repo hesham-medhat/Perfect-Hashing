@@ -28,8 +28,10 @@ namespace cs223 {
             if (!insertKey(key)) {
 
                 for (auto keyDestroyer : keys) {
-                    if (keyDestroyer != key) {
+                    deleteKey(keyDestroyer);
+                    if (keyDestroyer == key) {
                         deleteKey(keyDestroyer);
+                        break;
                     }
                 }
 
