@@ -7,15 +7,17 @@
 #include "UniversalHashFamily.h"
 
 namespace cs223 {
+    std::random_device UniversalHashFamily::rd;
+    std::mt19937_64 UniversalHashFamily::rng(rd());
+
     UniversalHashFamily::UniversalHashFamily(int sizeBits, int keyBits) {
         this->sizeBits = sizeBits;
         this->keyBits = keyBits;
         array = new int[sizeBits];
 
-        std::random_device random_device;  // Random device engine
-        std::mt19937_64 rng(random_device()); // Initialize Mersennes' twister using randomDevice to generate the seed
         for (int i = 0; i < sizeBits; i++) {
-            array[i] = random_int(0, (int) pow(2, keyBits) - 1, rng);
+            int randomInt = random_int(0, (int) pow(2, keyBits) - 1);
+            array[i] = randomInt;
         }
     }
 
@@ -48,10 +50,9 @@ namespace cs223 {
     }
 
 
-    int UniversalHashFamily::random_int(int initial, int last, std::mt19937_64 rng) {
+    int UniversalHashFamily::random_int(int initial, int last) {
         std::uniform_int_distribution<int> distribution(initial, last);
         return distribution(rng);  // Use rng as a generator
     }
-
 
 }

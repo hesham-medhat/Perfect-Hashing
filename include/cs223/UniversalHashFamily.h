@@ -16,8 +16,12 @@ namespace cs223 {
         int sizeBits;
         int keyBits;
         int *array;
-        int random_int(int initial, int last, std::mt19937_64 rng);
+        static std::random_device rd;  // Random device engine, usually based on /dev/random on UNIX-like systems
+        static std::mt19937_64 rng; // Initialize Mersennes' twister using rd to generate the seed
+        int random_int(int initial, int last);
     };
+
+
 }
 
 #endif
