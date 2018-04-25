@@ -16,7 +16,8 @@ namespace cs223 {
             static std::random_device rd;
             static std::mt19937 gen;
             static std::uniform_int_distribution<int> dis;
-            static int random_int();
+            static size_t getIndexLength(int size);
+            static int randomInt();
         };
 }
 
