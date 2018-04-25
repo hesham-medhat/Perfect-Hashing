@@ -5,10 +5,13 @@ namespace cs223 {
     HighLevelHashTable::HighLevelHashTable(UniversalHashFamily& uhf, int size)
             : HashTable(uhf, size) {
         data = new LowLevelHashTable* [size];
+        int lowLevelSize = size * size;
+        int lowLevelSizeBits = getSizeBits(lowLevelSize);
+        lowLevelSize = 1 << lowLevelSizeBits;
         for (int i = 0; i < size; i++) {
             data[i] = new LowLevelHashTable(
-                    UniversalHashFamily(getSizeBits(size), sizeof(int)*8),
-                    (int) pow(size, 2));
+                    UniversalHashFamily(lowLevelSizeBits, sizeof(int)*8),
+                    lowLevelSize);
         }
     }
 
@@ -21,7 +24,10 @@ namespace cs223 {
     }
 
     size_t HighLevelHashTable::getSizeBits(int size) {
-        size_t sizeBits = 1;
+        size_t sizeBits = 0;
+        if ((size - 1) & size) { // not power of 2?
+            sizeBits = 1;
+        }
         while (size >>= 1) {
             sizeBits += 1;
         }
