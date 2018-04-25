@@ -8,7 +8,7 @@
 namespace cs223 {
     HashTable::HashTable(UniversalHashFamily & uhf, int size) {
         hasher = &uhf;
-        size = size;
+        this->size = size;
     }
 
     HashTable::~HashTable() {
