@@ -30,6 +30,10 @@ namespace cs223 {
         }
     }
 
+    bool LowLevelHashTable::existsAtIndex(int index) {
+        return data[index].first;
+    }
+
     bool LowLevelHashTable::exists(int key) {
         int index = hasher->hash(key);
         return data[index].first;

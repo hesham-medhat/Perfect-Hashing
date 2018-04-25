@@ -10,6 +10,7 @@ namespace cs223 {
         LowLevelHashTable(UniversalHashFamily uhf, int size);
         ~LowLevelHashTable();
 
+        bool existsAtIndex(int index);
         bool exists(int key) override;
         void deleteKey(int key) override;
         bool insertKey(int key) override;
