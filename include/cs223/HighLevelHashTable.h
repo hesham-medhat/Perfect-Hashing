@@ -1,20 +1,16 @@
 #ifndef CS223_HIGHLEVELHASHTABLE_H
 #define CS223_HIGHLEVELHASHTABLE_H
 
-#include "LowLevelHashTable.h"
+#include <LowLevelHashTable.h>
 
 namespace cs223 {
-    class HighLevelHashTable : public HashTable {
-    public:
-        HighLevelHashTable(UniversalHashFamily &uhf, int keys[], int n);
-        ~HighLevelHashTable();
-
-        bool exists(int key) override;
-        void deleteKey(int key) override;
-        bool insertKey(int key) override;
-    private:
-        LowLevelHashTable** data;
-        static size_t getSizeBits(int size);
+    class HighLevelHashTable : public PerfectHashTable {
+        public:
+            HighLevelHashTable(const std::set<int>& keys);
+            bool exists(const int& key) const;
+        private:
+            MatrixHashFunction hashFn;
+            std::vector<LowLevelHashTable> table;
     };
 }
 

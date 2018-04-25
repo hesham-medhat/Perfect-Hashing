@@ -8,7 +8,11 @@ include_directories(include)
 include_directories(include/cs223)
 
 add_executable(Perfect_Hashing
-        include/cs223/HashTable.h
+        include/cs223/PerfectHashTable.h
         include/cs223/HighLevelHashTable.h
         include/cs223/LowLevelHashTable.h
-        include/cs223/UniversalHashFamily.h src/main.cpp src/HashTable.cpp src/LowLevelHashTable.cpp src/HighLevelHashTable.cpp src/UniversalHashFamily.cpp)
+        include/cs223/MatrixHashFunction.h
+        src/main.cpp src/PerfectHashTable.cpp
+        src/LowLevelHashTable.cpp
+        src/HighLevelHashTable.cpp
+        src/MatrixHashFunction.cpp)

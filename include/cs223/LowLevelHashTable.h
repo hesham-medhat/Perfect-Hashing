@@ -1,22 +1,19 @@
 #ifndef CS223_LOWLEVELHASHTABLE_H
 #define CS223_LOWLEVELHASHTABLE_H
 
-#include "HashTable.h"
 #include <utility>
+#include <vector>
+#include <PerfectHashTable.h>
+#include <MatrixHashFunction.h>
 
 namespace cs223 {
-    class LowLevelHashTable : public HashTable {
-    public:
-        LowLevelHashTable(UniversalHashFamily uhf, int keys[], int n);
-        ~LowLevelHashTable();
-
-        bool existsAtIndex(int index);
-        bool exists(int key) override;
-        void deleteKey(int key) override;
-        bool insertKey(int key) override;
-    private:
-
-        std::pair<bool, int> * data;// <ValueExists?, Value>
+    class LowLevelHashTable : public PerfectHashTable {
+        public:
+            LowLevelHashTable(const std::set<int>& keys);
+            bool exists(const int& key) const;
+        private:
+            MatrixHashFunction hashFn;
+            std::vector<std::pair<bool, int>> table; // <(exists?), (key)>
     };
 }
 
