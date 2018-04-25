@@ -2,50 +2,40 @@
 // Created by hesham on 4/20/18.
 //
 
-#include "LowLevelHashTable.h"
-#include "UniversalHashFamily.h"
-#include "HashTable.h"
 #include <iostream>
-
-void checkTable(cs223::LowLevelHashTable table) {
-    for (int i = 0; i < table.size; i++) {
-        std::cout << i << (table.existsAtIndex(i) ? " exists" : " doesn't exist") << std::endl;
-    }
-}
+#include <fstream>
+#include <set>
 
 int main() {
-    // TODO main function implementation.
+    std::ifstream file;
 
-    // TESTING LowLevelHashTable
+    std::string paths[] = {"../testCases/keys1001000.txt",
+                           "../testCases/keys10001000.txt",
+                           "../testCases/keys100001000000.txt",
+                           "../testCases/keys10000001000000.txt"};
 
-    cs223::UniversalHashFamily hasher(1, sizeof(int)*8);
-    cs223::LowLevelHashTable table(hasher, 2);
 
-    // std::cout << 13 << " hashed to " << hasher.hash(13) << std::endl;
-    table.insertKey(13);
+    for(const std::string &path : paths) {
+        std::cout << path << std::endl;
+        file.open(path);
+        std::set<int> keys;     // keys are read into this set
+        int value;
+        int dup = 0;
+        file >> value;
+        if (file) {
+            keys.insert(value);
+            char separator;
+            while (file >> separator >> value && separator == ',') {
+                if (!keys.insert(value).second) {
+                    dup ++;
+                }
+            }
+        }
+        file.close();
 
-    // std::cout << 5 << " hashed to " << hasher.hash(5) << std::endl;
-    table.insertKey(5);
+        // your code here
 
-    checkTable(table);
-
-    // std::cout << 1000 << " hashed to " << hasher.hash(1000) << std::endl;
-    std::cout << "Inserting 1000" << std::endl;
-    if (table.insertKey(1000)) {
-        // std::cout << "collision at 1000!" << std::endl;
     }
-
-    // std::cout << 57 << " hashed to " << hasher.hash(57) << std::endl;
-    if (table.insertKey(57)) {
-        // std::cout << "collision at 57!" << std::endl;
-    }
-
-    // std::cout << 37 << " hashed to " << hasher.hash(37) << std::endl;
-    if (table.insertKey(37)) {
-        // std::cout << "collision at 37!" << std::endl;
-    }
-
-    checkTable(table);
 
     return 0;
 }
