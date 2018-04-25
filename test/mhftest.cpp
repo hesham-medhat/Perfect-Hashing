@@ -1,10 +1,10 @@
 #include <iostream>
-#include <UniversalHashFamily.h>
+#include <MatrixHashFunction.h>
 using namespace std;
 using namespace cs223;
 
 bool hasCollisions(
-        UniversalHashFamily& uhf,
+        MatrixHashFunction& mhf,
         const size_t& size,
         const size_t& count,
         const int keys[]);
@@ -29,19 +29,19 @@ int main()
     size_t tableSize = 1u << sizeBits;
     size_t keyBits = sizeof(int) * 8;
 
-    cout << "Will construct a hash function matrix of dimensions "
+    cout << "Will construct a matrix hash function of dimensions "
         << sizeBits << " x " << keyBits << endl;
     cout << "(Table size: " << tableSize << ")" << endl << endl;
 
     constexpr size_t maxRetries = 256;
     size_t retries = maxRetries;
-    UniversalHashFamily uhf(sizeBits, keyBits);
-    while (hasCollisions(uhf, tableSize, count, keys) && retries--)
+    MatrixHashFunction mhf(size);
+    while (hasCollisions(mhf, tableSize, count, keys) && retries--)
     {
-        uhf = UniversalHashFamily(sizeBits, keyBits);
+        mhf = MatrixHashFunction(size);
     }
 
-    if (hasCollisions(uhf, tableSize, count, keys))
+    if (hasCollisions(mhf, tableSize, count, keys))
     {
         cout << "Could not find a hash function with no collisions" << endl;
     }
@@ -50,7 +50,7 @@ int main()
         cout << "Gotcha! (" << maxRetries - retries << " retries)" << endl;
         for (const auto& key : keys)
         {
-            cout << key << "\thashed to\t" << uhf.hash(key) << endl;
+            cout << key << "\thashed to\t" << mhf.hash(key) << endl;
         }
     }
 
@@ -58,7 +58,7 @@ int main()
 }
 
 bool hasCollisions(
-    UniversalHashFamily& uhf,
+    MatrixHashFunction& mhf,
     const size_t& size,
     const size_t& count,
     const int keys[])
@@ -71,11 +71,11 @@ bool hasCollisions(
 
     for (size_t i = 0; i < count; ++i)
     {
-        if (exists[uhf.hash(keys[i])])
+        if (exists[mhf.hash(keys[i])])
         {
             return true;
         }
-        exists[uhf.hash(keys[i])] = true;
+        exists[mhf.hash(keys[i])] = true;
     }
 
     return false;
