@@ -35,7 +35,14 @@ int main() {
 
         file.close();
 
-        cs223::LowLevelHashTable llht(keys);
+        cs223::HighLevelHashTable llht(keys);
+        for (std::set<int>::iterator it = keys.begin(); it != keys.end(); ++it) {
+            int key = *it;
+            if (!llht.exists(key))
+            {
+                std::cout << "Key " << key << " missing!" << std::endl;
+            }
+        }
     }
 
     return 0;
