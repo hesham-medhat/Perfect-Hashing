@@ -7,6 +7,7 @@ namespace cs223 {
     class HighLevelHashTable : public PerfectHashTable {
         public:
             HighLevelHashTable(const std::set<int>& keys);
+            ~HighLevelHashTable();
             bool exists(const int& key) const;
         private:
             MatrixHashFunction hashFn;
