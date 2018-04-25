@@ -31,7 +31,7 @@ namespace cs223 {
 
         for (int i = 0; i < sizeBits; i++) {
             hash <<= 1;
-            int value = array[i] & key;
+            unsigned int value = array[i] & key;
             while (value) {
                 hash ^= value & 1;
                 value >>= 1;
