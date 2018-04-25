@@ -6,7 +6,6 @@
 namespace cs223 {
     class PerfectHashTable {
         public:
-            PerfectHashTable(const std::set<int>& keys);
             virtual bool exists(const int& key) const = 0;
     };
 }

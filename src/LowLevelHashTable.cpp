@@ -10,20 +10,19 @@
 
 namespace cs223 {
     LowLevelHashTable::LowLevelHashTable(const std::set<int>& keys)
-            : PerfectHashTable(keys) {
+    {
         if (!keys.empty()) {
             int tableSize = 1;
             while (tableSize < keys.size()) {
                 tableSize *= 2;
             }
-            table = new std::vector<std::pair<bool, int>>(tableSize);
+            table = new std::vector<std::pair<bool, int>>(tableSize*tableSize);
             buildTable(keys);
         }
-
     }
 
     void LowLevelHashTable::buildTable(const std::set<int>& keys) {
-        hashFn = new MatrixHashFunction(keys.size());
+        hashFn = new MatrixHashFunction(keys.size()*keys.size());
         for (auto key : keys) {
             if (!insertKey(key)) {
 
@@ -40,7 +39,6 @@ namespace cs223 {
                     item.second = false;
                 }*/
 
-                delete(hashFn);
                 buildTable(keys);// Expected depth of two.
             }
         }
@@ -57,7 +55,6 @@ namespace cs223 {
     }
 
     LowLevelHashTable::~LowLevelHashTable() {
-        delete[] LowLevelHashTable::table;
     }
 
     bool LowLevelHashTable::insertKey(int key) {

@@ -3,8 +3,8 @@
 #include "HighLevelHashTable.h"
 
 namespace cs223 {
-    HighLevelHashTable::HighLevelHashTable(const std::set<int>& keys) : hashFn(MatrixHashFunction(keys.size())),
-                                                                        PerfectHashTable(keys) {
+    HighLevelHashTable::HighLevelHashTable(const std::set<int>& keys) : hashFn(MatrixHashFunction(keys.size()))
+    {
 
         std::set<int> *collisions = new std::set<int>[hashFn.getActualSize()];
 
@@ -24,10 +24,7 @@ namespace cs223 {
 
     HighLevelHashTable::~HighLevelHashTable() {
         for (size_t i = 0; i < hashFn.getActualSize(); ++i) {
-            delete table[i];
         }
-        delete table;
-        delete hashFn;
     }
 
     bool HighLevelHashTable::exists(const int &key) const {

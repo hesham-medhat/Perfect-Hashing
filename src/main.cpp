@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <set>
+#include <HighLevelHashTable.h>
 
 int main() {
     std::ifstream file;
@@ -31,10 +32,10 @@ int main() {
                 }
             }
         }
+
         file.close();
 
-        // your code here
-
+        cs223::LowLevelHashTable llht(keys);
     }
 
     return 0;
