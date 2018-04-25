@@ -7,7 +7,7 @@
 namespace cs223 {
     class LowLevelHashTable : public HashTable {
     public:
-        LowLevelHashTable(UniversalHashFamily uhf, int size);
+        LowLevelHashTable(UniversalHashFamily uhf, int keys[], int n);
         ~LowLevelHashTable();
 
         bool existsAtIndex(int index);

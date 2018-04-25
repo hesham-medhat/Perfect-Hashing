@@ -3,15 +3,23 @@
 //
 
 #include <utility>
+#include <stdexcept>
 #include "LowLevelHashTable.h"
 #include "UniversalHashFamily.h"
 
 namespace cs223 {
-    LowLevelHashTable::LowLevelHashTable(UniversalHashFamily uhf, int size)
-            : HashTable(uhf, size) {
+    LowLevelHashTable::LowLevelHashTable(UniversalHashFamily uhf, int keys[], int n)
+            : HashTable(uhf, keys, n) {
+        size = (int) pow(pow(2, ceil(log(n)/log(2))), 2);     //nearest larger power of 2
         data = new std::pair<bool, int> [size];
         for (int i = 0; i < size; i++) {
             data[i].first = false;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (!insertKey(keys[i])) {
+                throw std::invalid_argument("Collision occured!");
+            }
         }
     }
 

@@ -6,8 +6,7 @@
 #include "UniversalHashFamily.h"
 
 namespace cs223 {
-    HashTable::HashTable(UniversalHashFamily & uhf, int size) {
+    HashTable::HashTable(UniversalHashFamily & uhf, int keys[], int n) {
         hasher = &uhf;
-        this->size = size;
     }
 }

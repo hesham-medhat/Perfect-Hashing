@@ -6,7 +6,7 @@
 namespace cs223 {
     class HighLevelHashTable : public HashTable {
     public:
-        HighLevelHashTable(UniversalHashFamily &uhf, int size);
+        HighLevelHashTable(UniversalHashFamily &uhf, int keys[], int n);
         ~HighLevelHashTable();
 
         bool exists(int key) override;
