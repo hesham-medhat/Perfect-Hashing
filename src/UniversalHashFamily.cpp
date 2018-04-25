@@ -14,7 +14,7 @@ namespace cs223 {
         this->sizeBits = sizeBits;
         this->keyBits = keyBits;
         array = new int[sizeBits];
-        int bound = ~(1 << (keyBits - 1)); // largest value
+        int bound = (1 << (keyBits - 1)) - 1; // largest value
 
         for (int i = 0; i < sizeBits; i++) {
             int randomInt = random_int(-bound - 1, bound);
