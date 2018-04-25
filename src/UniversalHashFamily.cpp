@@ -14,9 +14,10 @@ namespace cs223 {
         this->sizeBits = sizeBits;
         this->keyBits = keyBits;
         array = new int[sizeBits];
+        int bound = ~(1 << (keyBits - 1)); // largest value
 
         for (int i = 0; i < sizeBits; i++) {
-            int randomInt = random_int(0, (int) pow(2, keyBits) - 1);
+            int randomInt = random_int(-bound - 1, bound);
             array[i] = randomInt;
         }
     }
@@ -29,15 +30,14 @@ namespace cs223 {
         int hash = 0;
 
         for (int i = 0; i < sizeBits; i++) {
-            int value = 0;
-            for (int j = 0; j < keyBits; j++) {
-                value += (array[i] >> j & 1) * (key >> j & 1);
+            hash <<= 1;
+            int value = array[i] & key;
+            while (value) {
+                hash ^= value & 1;
+                value >>= 1;
             }
-
-            value %= 2;
-            hash = hash << 1;
-            hash |= value;
         }
+
         return hash;
     }
 
