@@ -25,6 +25,8 @@ namespace cs223 {
                 item.first = false;
             }
             buildTable(keys);
+        } else {
+            table = new std::vector<std::pair<bool, int>>();
         }
     }
 
@@ -55,6 +57,9 @@ namespace cs223 {
     }
 
     bool LowLevelHashTable::exists(const int& key) const {
+        if (table->empty()) {
+            return false;
+        }
         int index = hashFn->hash(key);
         if (table->at(index).first) {
             return key == table->at(index).second;
