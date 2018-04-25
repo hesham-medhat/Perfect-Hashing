@@ -7,7 +7,7 @@ namespace cs223 {
         data = new LowLevelHashTable* [size];
         for (int i = 0; i < size; i++) {
             data[i] = new LowLevelHashTable(
-                    UniversalHashFamily(getSizeBits(size), sizeof(int)),
+                    UniversalHashFamily(getSizeBits(size), sizeof(int)*8),
                     (int) pow(size, 2));
         }
     }
