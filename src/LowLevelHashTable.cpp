@@ -11,12 +11,14 @@
 namespace cs223 {
     LowLevelHashTable::LowLevelHashTable(const std::set<int>& keys)
     {
+        size_t tempSize = keys.size();
+        tempSize *= tempSize;
         if (!keys.empty()) {
             int tableSize = 1;
-            while (tableSize < keys.size()) {
+            while (tableSize < tempSize) {
                 tableSize *= 2;
             }
-            table = new std::vector<std::pair<bool, int>>(tableSize*tableSize);
+            table = new std::vector<std::pair<bool, int>>(tableSize);
             buildTable(keys);
         }
     }
