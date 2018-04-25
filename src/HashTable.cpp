@@ -10,4 +10,8 @@ namespace cs223 {
         hasher = &uhf;
         size = size;
     }
+
+    HashTable::~HashTable() {
+        delete hasher;
+    }
 }

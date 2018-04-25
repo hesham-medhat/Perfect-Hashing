@@ -8,6 +8,7 @@ namespace cs223 {
     class LowLevelHashTable : public HashTable {
     public:
         LowLevelHashTable(UniversalHashFamily uhf, int size);
+        ~LowLevelHashTable();
 
         bool exists(int key) override;
         void deleteKey(int key) override;

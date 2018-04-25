@@ -12,6 +12,14 @@ namespace cs223 {
         }
     }
 
+    HighLevelHashTable::~HighLevelHashTable() {
+        for (size_t i = 0; i < size; ++i) {
+            delete data[i];
+        }
+
+        delete[] data;
+    }
+
     size_t HighLevelHashTable::getSizeBits(int size) {
         size_t sizeBits = 1;
         while (size >> 1) {

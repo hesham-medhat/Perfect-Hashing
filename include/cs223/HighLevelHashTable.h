@@ -7,6 +7,7 @@ namespace cs223 {
     class HighLevelHashTable : public HashTable {
     public:
         HighLevelHashTable(UniversalHashFamily &uhf, int size);
+        ~HighLevelHashTable();
 
         bool exists(int key) override;
         void deleteKey(int key) override;

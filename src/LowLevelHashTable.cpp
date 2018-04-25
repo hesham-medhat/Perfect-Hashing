@@ -15,6 +15,10 @@ namespace cs223 {
         }
     }
 
+    LowLevelHashTable::~LowLevelHashTable() {
+        delete[] data;
+    }
+
     bool LowLevelHashTable::insertKey(int key) {
         int index = hasher->hash(key);
         data[index].second = key;

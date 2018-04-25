@@ -7,6 +7,7 @@ namespace cs223 {
     class UniversalHashFamily {
     public:
         UniversalHashFamily(int sizeBits, int keyBits);
+        ~UniversalHashFamily();
         int hash(int key);
         int getSizeBits();
         int getKeyBits();

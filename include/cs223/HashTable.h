@@ -7,6 +7,7 @@ namespace cs223 {
     class HashTable {
     public:
         HashTable(UniversalHashFamily & uhf, int size);
+        ~HashTable();
 
         int size;
 

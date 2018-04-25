@@ -19,6 +19,10 @@ namespace cs223 {
         }
     }
 
+    UniversalHashFamily::~UniversalHashFamily() {
+        delete[] array;
+    }
+
     int UniversalHashFamily::hash(int key) {
         int hash = 0;
 
