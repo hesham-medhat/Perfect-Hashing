@@ -4,52 +4,74 @@
 
 #include <utility>
 #include <stdexcept>
+#include <vector>
 #include "LowLevelHashTable.h"
-#include "UniversalHashFamily.h"
+#include "MatrixHashFunction.h"
 
 namespace cs223 {
-    LowLevelHashTable::LowLevelHashTable(UniversalHashFamily uhf, int keys[], int n)
-            : HashTable(uhf, keys, n) {
-        size = (int) pow(pow(2, ceil(log(n)/log(2))), 2);     //nearest larger power of 2
-        data = new std::pair<bool, int> [size];
-        for (int i = 0; i < size; i++) {
-            data[i].first = false;
+    LowLevelHashTable::LowLevelHashTable(const std::set<int>& keys)
+            : PerfectHashTable(keys) {
+        if (!keys.empty()) {
+            int tableSize = 1;
+            while (tableSize < keys.size()) {
+                tableSize *= 2;
+            }
+            table = new std::vector<std::pair<bool, int>>(tableSize);
+            buildTable(keys);
         }
 
-        for (int i = 0; i < n; i++) {
-            if (!insertKey(keys[i])) {
-                throw std::invalid_argument("Collision occured!");
+    }
+
+    void LowLevelHashTable::buildTable(const std::set<int>& keys) {
+        hashFn = new MatrixHashFunction(keys.size());
+        for (auto key : keys) {
+            if (!insertKey(key)) {
+
+                for (auto keyDestroyer : keys) {
+                    if (keyDestroyer != key) {
+                        deleteKey(keyDestroyer);
+                    }
+                }
+
+                /* Alternative more costly way of destroying
+                for (auto item : *table) {
+                    item.second = false;
+                }*/
+
+                delete(hashFn);
+                buildTable(keys);// Expected depth of two.
             }
         }
     }
 
+    bool LowLevelHashTable::exists(const int& key) const {
+        int index = hashFn->hash(key);
+        if (table->at(index).first) {
+            return key == table->at(index).second;
+        } else {
+            return false;
+        }
+
+    }
+
     LowLevelHashTable::~LowLevelHashTable() {
-        delete[] data;
+        delete[] LowLevelHashTable::table;
     }
 
     bool LowLevelHashTable::insertKey(int key) {
-        int index = hasher->hash(key);
-        data[index].second = key;
-        if (data[index].first) {
+        int index = hashFn->hash(key);
+        table->at(index).second = key;
+        if (table->at(index).first) {
             return false;// Collision occurred
         } else {
-            data[index].first = true;
+            table->at(index).first = true;
             return true;
         }
     }
 
-    bool LowLevelHashTable::existsAtIndex(int index) {
-        return data[index].first;
-    }
-
-    bool LowLevelHashTable::exists(int key) {
-        int index = hasher->hash(key);
-        return data[index].first;
-    }
-
     void LowLevelHashTable::deleteKey(int key) {
-        int index = hasher->hash(key);
-        data[index].first = false;
+        int index = hashFn->hash(key);
+        table->at(index).first = false;
     }
 
 }
