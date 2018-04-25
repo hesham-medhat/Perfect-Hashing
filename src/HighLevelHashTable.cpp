@@ -22,7 +22,7 @@ namespace cs223 {
 
     size_t HighLevelHashTable::getSizeBits(int size) {
         size_t sizeBits = 1;
-        while (size >> 1) {
+        while (size >>= 1) {
             sizeBits += 1;
         }
         return sizeBits;
