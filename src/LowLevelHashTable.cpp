@@ -3,6 +3,7 @@
 //
 
 #include <utility>
+#include <iostream>
 #include <stdexcept>
 #include <vector>
 #include "LowLevelHashTable.h"
@@ -13,17 +14,24 @@ namespace cs223 {
     {
         size_t tempSize = keys.size();
         tempSize *= tempSize;
+        trials = 0;
         if (!keys.empty()) {
             int tableSize = 1;
             while (tableSize < tempSize) {
                 tableSize *= 2;
             }
             table = new std::vector<std::pair<bool, int>>(tableSize);
+            for (auto item : *table) {
+                item.first = false;
+            }
             buildTable(keys);
         }
     }
 
     void LowLevelHashTable::buildTable(const std::set<int>& keys) {
+        if (++trials > 1) {
+            std::cout << "Trial #" << trials << std::endl;
+        }
         hashFn = new MatrixHashFunction(keys.size()*keys.size());
         for (auto key : keys) {
             if (!insertKey(key)) {

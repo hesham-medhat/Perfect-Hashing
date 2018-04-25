@@ -19,6 +19,7 @@ namespace cs223 {
         private:
             MatrixHashFunction* hashFn;
             std::vector<std::pair<bool, int>>* table; // <(exists?), (key)>
+            int trials;
 
             void buildTable(const std::set<int>& keys);
     };
